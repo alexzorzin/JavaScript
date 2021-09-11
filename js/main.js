@@ -1,46 +1,71 @@
-let catalogo = "¡Bienvenido a SoftZWare! \n A continuación verás nuestro catalogo";
-alert(catalogo);
+let totalSoftware = 0;
+let arraySoftware = '';
+alert("¡Saludos! Sea muy bienvenido a SoftZWare, donde todo programa se consigue a buen precio. Presione ACEPTAR para continuar")
 
-const photoshop = 500;
-const rust = 750;
-const office = 3100;
-const fifa = 3100;
-const resident = 3450;
+function comprarSoftware() {
 
-let totalPrecio;
+    let programaElegido = prompt(`¡Hola! Elija uno de estos programas/juegos para añadir a su carrito:
+        1. Photoshop - $500
+        2. Rainbow Six - $750
+        3. FIFA 22 - $3100
+        4. Paquete Office - $3150
+        5. ESET NOD32 Antivirus - $3940
+        6. Rust - $750
 
-let software = prompt("Elija el numero de programa que desee comprar: \n 1) Photoshop: $500 \n 2) Rust: $750 \n 3) Paquete Office: $3100 \n 4) FIFA 22: $3100 \n 5) Resident Evil: Village: $3450 ");
+        Escriba aquí el nombre del programa/juego que desee comprar
+    `)
     
-switch (software){
-    case "1": totalPrecio = photoshop; break;
-    case "2": totalPrecio = rust; break;
-    case "3": totalPrecio = office; break;
-    case "4": totalPrecio = fifa; break;
-    case "5": totalPrecio = resident; break;
+    arraySoftware = programaElegido.split(',').map(function(item) {
+        return item.trim();
+    });
+    console.log(arraySoftware)
+
+    for (let i = 0; i < arraySoftware.length; i++) {
+        
+        switch(parseInt(arraySoftware[i])){
+            case 1:
+                totalSoftware += 500;
+                console.log("$500");
+                break;
+            case 2:
+                totalSoftware += 750;
+                console.log("$750");
+                break;
+            case 3:
+                totalSoftware += 3100;
+                console.log("$3100");
+                break;
+            case 4:
+                totalSoftware += 3150;
+                console.log("$3150");
+                break;
+            case 5:
+                totalSoftware += 3940;
+                console.log("$3940");
+                break;
+            case 6:
+                totalSoftware += 750;
+                console.log("$750");
+                break;
+        } 
+    }
 }
 
-let preguntaProductos = prompt("¿Va a comprar algo más?");
+comprarSoftware()
+let comprarMas = prompt("Quiere seguir sumando compras? SI o NO")
+let confirmaCompra = comprarMas.toUpperCase();
 
-while ((preguntaProductos.toLowerCase() == "si") && (software != "")){
+
+while(confirmaCompra == "SI") {
     do {
-        let otroSoftware = prompt("Elija el numero de programa que desee comprar: \n 1) Photoshop: $500 \n 2) Rust: $750 \n 3) Paquete Office: $3100 \n 4) FIFA 22: $3100 \n 5) Resident Evil: Village: $3450");
-        switch (otroSoftware) {
-            case "1": totalPrecio += photoshop; break;
-            case "2": totalPrecio += rust; break;
-            case "3": totalPrecio += office; break;
-            case "4": totalPrecio += fifa; break;
-            case "5": totalPrecio += resident; break;
-        }
+        comprarSoftware();
+        
+        comprarMas = prompt("Quiere seguir sumando compras? SI o NO")
+        confirmaCompra = comprarMas.toUpperCase();
 
-    preguntaProductos = prompt("¿Va a comprar algo más?");
-
-    } while (preguntaProductos.toLowerCase() == "si");
+    } while(confirmaCompra == "SI")
 }
 
-if (software != "") {
-    alert("Estás a punto de gastar un total de $" + totalPrecio);
-}
-
-let despedida = "Gracias por comprar aquí. Ayudas a que nuestro sitio sea más reconocido \n ¡Tenga un muy buen día!";
-alert(despedida);
-
+let totalCompra = alert("¡Gracias por comprar aquí! El total de su compra es de" + " $" + totalSoftware)
+console.log(arraySoftware)
+console.log(`Total de tu compra ${totalSoftware}`)
