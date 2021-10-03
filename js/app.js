@@ -112,11 +112,6 @@ function obtenerLocal(){
                 botonEliminar.parentElement.remove();
                 carritoDeCompras = carritoDeCompras.filter(prodEliminado => prodEliminado.id != el.id);
                 actualizarCarrito();
-                Toastify({
-                    text: "Producto Eliminado",
-                    backgroundColor: "red",
-                    className: "info",
-                  }).showToast();
             })
         });
     }
