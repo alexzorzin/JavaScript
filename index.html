@@ -6,8 +6,8 @@
         <meta name="author" content="Alex Zorzin" />
         <meta name="description" content="Buy now the best software on the market on our page. Safe and cheaper">
         <meta name="keywords" content="SoftZWare Games Antivirus Office Cheap OpenSource "/>
-        <title>Home | SoftZWare</title>
-        <link rel="icon" type="image/-icon" href="assets/iconsoftzware.png" />
+        <title>Catálogo | SoftZWare</title>
+        <link rel="icon" type="image/-icon" href="./assets/iconsoftzware.png" />
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
@@ -18,8 +18,7 @@
         <link rel="stylesheet" href="./css/animate.css">
         <!-- Fontello Icons -->
         <link rel="stylesheet" href="./css/fontello.css">
-        <!-- JS DESAFIO -->
-        <script src="./js/main.js"></script>
+        
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -35,6 +34,7 @@
                         <li class="nav-item"><a class="nav-link" href="opensource.html">Open-Source Software</a></li>
                         <li class="nav-item"><a class="nav-link" href="./contact.html">Contact Us</a></li>
                     </ul>
+                    <a id="boton-carrito"><i class="icon-basket ms-2"></i><span id="contadorCarrito">0</span></a>
                 </div>
             </div>
         </nav>
@@ -42,83 +42,24 @@
         <header class="masthead text-center text-white">
             <div class="masthead-content col-12">
                 <div class="container px-5">
-                    <h1 class="masthead-heading-home mb-0">SoftZWare</h1>
-                    <h2 class="masthead-subheading mb-0">Download your favourite software here!</h2>
-                    <a class="btn btn-gradient btn-xl rounded-pill mt-5" href="#scroll">Learn More</a>
+                    <h1 class="masthead-heading-home mb-0">Catálogo</h1>
+                    <h2 class="masthead-subheading mb-0">Aquí encontrarás todos nuestros productos</h2>
+                    <a class="btn btn-gradient btn-xl rounded-pill mt-5" href="#contenedor-productos">Ver todos</a>
                 </div>
             </div>
         </header>
-        <section class="animation--hide">
-        <!-- Content section 1-->
-        <section id="scroll">
-            <div class="container px-5 border mt-3">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 order-lg-2">
-                        <div class="p-5 center"><img class="img-fluid w-75 wow animate__animated animate__fadeInRight" src="assets/img/PlayStationLogo.png" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6 order-lg-1">
-                        <div class="p-5 home__text">
-                            <h2 class="display-4">PlayStation games in offer!</h2>
-                            <p class="fst-italic fs-5">Buy now the games you always wanted cheap!
-                                You can play for a really low price games like FIFA 21, Resident Evil: Village, Battlefield V, and more in our catalog.</p>
-                            <a href="./games.html"><input class="btn btn-gradient rounded-pill" type="button" value="Click Here"></a>
-                        </div>
-                    </div>
-                </div>
+          <div class="container">
+            <div class="row">
+              <select class="form-select" id="selecTipo">
+                <option value="all">Todos</option>
+                <option value="Programas">Programas</option>
+                <option value="Juegos">Juegos</option>
+            </select>
             </div>
-        </section>
-        <!-- Content section 2-->
-        <section>
-            <div class="container px-5 border mt-3">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5 center"><img class="img-fluid w-75 wow animate__animated animate__fadeInLeft" src="assets/img/Antivirus.png" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5 home__text">
-                            <h2 class="display-4">Buy the best antivirus here!</h2>
-                            <p class="fst-italic fs-5">Stay safe with the best antivirus of the market at a lower price than other stores.</p>
-                            <a href="./antivirus.html"><input class="btn btn-gradient rounded-pill" type="button" value="Click Here"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Content section 3-->
-        <section>
-            <div class="container px-5 border mt-3">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 order-lg-2">
-                        <div class="p-5 center"><img class="img-fluid w-75 wow animate__animated animate__fadeInRight" src="assets/img/OfficePackage.png" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6 order-lg-1">
-                        <div class="p-5 home__text">
-                            <h2 class="display-4">Microsoft Office 365 at a 35% discount</h2>
-                            <p class="fst-italic fs-5">Buy the Office package offered by Microsoft for your work or university at a fairly cheap price and get discounts on your next purchases.</p>
-                            <a href="./office.html"><input class="btn btn-gradient rounded-pill" type="button" value="Click Here"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-             <!-- Content section 4-->
-        <section>
-            <div class="container px-5 border mt-3">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5 center"><img class="img-fluid w-75 wow animate__animated animate__fadeInLeft" src="assets/img/OpenSource.png" alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5 home__text">
-                            <h2 class="display-4">Download Open Source Software</h2>
-                            <p class="fst-italic fs-5">In this section we will show you what an open source program is and its dangers. We offer you these programs previously analyzed by the best antivirus. So don't worry because we will never offer you an infected file.</p>
-                            <a href="./opensource.html"><input class="btn btn-gradient rounded-pill" type="button" value="Click Here"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        </section>
+          </div>
+        <!--Catalogo-->
+        <main id="contenedor-productos" class="row gx-5"></main>
+
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-dark text-muted mt-3 pb-3">
     <!-- Section: Links  -->
@@ -195,11 +136,22 @@
     </div>
   </footer>
   <!-- Footer -->
+  <div class="modal-contenedor">
+    <div class="modal-carrito">
+        <h3>Carrito de compras | SoftZWare</h3>
+        <button id="carritoCerrar"><i class="fas fa-times-circle"></i></button>
+        <div id="carrito-contenedor">
+        </div>
+        <p class="precioProducto">Precio total: $<span id="precioTotal"></span></p>
+    </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/wow.min.js"></script>
               <script>
               new WOW().init();
               </script>
+              <script src="./js/stock.js"></script>
+              <script src="./js/modal.js"></script>
+              <script src="./js/app.js"></script>
     </body>
 </html>
