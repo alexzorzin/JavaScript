@@ -58,7 +58,7 @@ function mostrarProductos() {
                         "newestOnTop": false,
                         "progressBar": false,
                         "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
+                        "preventDuplicates": true,
                         "onclick": null,
                         "positionClass": "toast-bottom-right",
                         "showDuration": "300",
