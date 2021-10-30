@@ -1,55 +1,44 @@
-let carritoDeCompras = []
+let cart = []
 
-const contenedorProductos = document.getElementById('contenedor-productos');
-const contenedorCarrito = document.getElementById('carrito-contenedor');
+const stockContainer = document.getElementById('stock-container');
+const cartContainer = document.getElementById('cart-container');
 
-const contadorCarrito = document.getElementById('contadorCarrito');
-const precioTotal = document.getElementById('precioTotal');
-const selecTipo = document.getElementById('selecTipo');
+const productCounter = document.getElementById('product-counter');
+const totalPrice = document.getElementById('totalPrice');
 const URLJSON = "./assets/data/stock.json";
 
-// $('#selecTipo').on('change', () => {
-//     console.log(selecTipo.value)
-//     if ($('#selecTipo').val() == 'all') {
-//         mostrarProductos(stockProductos)
-//     } else {
-//         mostrarProductos(stockProductos.filter(el => el.Tipo == $('#selecTipo').val()))
+showStock();
 
-//     }
-// })
+function showStock() {
+    $('#stock-container').append = '';
 
-mostrarProductos()
-
-function mostrarProductos() {
-    $('#contenedor-productos').append = '';
-
-    $.getJSON(URLJSON, function (respuesta, estado) {
-        if (estado === "success") {
-            let stockProductos = respuesta;
-            for (const producto of stockProductos) {
+    $.getJSON(URLJSON, function (answer, status) {
+        if (status === "success") {
+            let stock = answer;
+            for (const product of stock) {
                 let div = document.createElement('div');
-                div.classList.add('producto');
+                div.classList.add('product');
                 div.innerHTML += ` <div class="card">
                                     <div class="card-image">
-                                        <img class="img-fluid" src=${producto.img}>
-                                        <p class="fw-normal card-title fs-4 ms-1">${producto.nombre}</h4>
-                                        <a id="boton${producto.id}" class="btn-floating icon-cart-plus"></a>
+                                        <img class="img-fluid" src=${product.img}>
+                                        <p class="fw-normal card-title fs-4 ms-1">${product.name}</h4>
+                                        <a id="btn${product.id}" class="btn-floating icon-cart-plus"></a>
                                     </div>
                                     <div class="card-content m-1">
-                                        <p>${producto.desc}</p>
-                                        <p>Tipo: ${producto.Tipo}</p>
-                                        <p> $${producto.Precio}</p>
+                                        <p>${product.desc}</p>
+                                        <p class="fw-bold">${product.Type}</p>
+                                        <p> AR$ ${product.Price}</p>
                                     </div>
                                 </div> `
 
-                $('#contenedor-productos').append(div);
+                $('#stock-container').append(div);
 
-                let boton = document.getElementById(`boton${producto.id}`)
+                let btn = document.getElementById(`btn${product.id}`)
 
                 $(document).ready(function () {
-                    $(boton).click(function () {
-                        agregarAlCarrito(producto.id);
-                        toastr["success"](" ", `Has añadido ${producto.nombre} al carrito`);
+                    $(btn).click(function () {
+                        addToCart(product.id);
+                        toastr["success"](" ", `You have added ${product.name} to the cart`);
                     });
 
                     toastr.options = {
@@ -58,7 +47,7 @@ function mostrarProductos() {
                         "newestOnTop": false,
                         "progressBar": false,
                         "positionClass": "toast-top-right",
-                        "preventDuplicates": true,
+                        "preventDuplicates": false,
                         "onclick": null,
                         "positionClass": "toast-bottom-right",
                         "showDuration": "300",
@@ -77,83 +66,165 @@ function mostrarProductos() {
     })
 }
 
-function agregarAlCarrito(id) {
-    let repetido = carritoDeCompras.find(prodR => prodR.id == id);
-    if (repetido) {
-        repetido.Cantidad = repetido.Cantidad + 1;
-        $(`#Cantidad${repetido.id}`).html(`Cantidad: ${repetido.Cantidad}`)
-        actualizarCarrito()
+function addToCart(id) {
+    let repeated = cart.find(prodR => prodR.id == id);
+    if (repeated) {
+        repeated.Quantity = repeated.Quantity + 1;
+        $(`#Quantity${repeated.id}`).html(`Quantity: ${repeated.Quantity}`)
+        updateCart()
     } else {
-        $.getJSON(URLJSON, function (respuesta, estado) {
-            if (estado === "success") {
-                let stockProductos = respuesta;
-                let productoAgregar = stockProductos.find(prod => prod.id == id);
+        $.getJSON(URLJSON, function (answer, status) {
+            if (status === "success") {
+                let stock = answer;
+                let addProduct = stock.find(prod => prod.id == id);
 
-                carritoDeCompras.push(productoAgregar);
+                cart.push(addProduct);
 
-                productoAgregar.cantidad = 1;
+                addProduct.Quantity = 1;
 
-                actualizarCarrito()
-                $('#carrito-contenedor').append(`<div class="productoEnCarrito">
-    <p>${productoAgregar.nombre}</p>
-    <p>Precio: ${productoAgregar.Precio}</p>
-    <p id="Cantidad${productoAgregar.id}">Cantidad: ${productoAgregar.Cantidad}</p>
-    <p>Tipo: ${productoAgregar.Tipo}</p>
-    <button id="eliminar${productoAgregar.id}" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button>
-    </div>`)
+                updateCart()
 
-                let botonEliminar = document.getElementById(`eliminar${productoAgregar.id}`)
+                $('#cart-container').append(`<div class="productOnCart row">
+                <div class="col-3 z-index-3">
+                <p>${addProduct.name}</p>
+                </div>
+                <div class="col-3 z-index-3">
+                <p>Price: ${addProduct.Price}</p>
+                </div>
+                <div class="col-3 z-index-3">
+                <p id="Quantity${addProduct.id}">Quantity: ${addProduct.Quantity}</p>
+                </div>
+                <button id="delete${addProduct.id}" class="col-1 delete-btn"><i class="fas fa-trash-alt"></i></button>
+                <button id="substractCart${addProduct.id}" class="col-1 delete-btn">-</button>
+                <button id="addCart${addProduct.id}" class="col-1 delete-btn">+</button>
+                </div>`)
 
-                botonEliminar.addEventListener('click', () => {
-                    botonEliminar.parentElement.remove()
-                    carritoDeCompras = carritoDeCompras.filter(prodE => prodE.id != productoAgregar.id)
-                    actualizarCarrito()
-                    toastr["warning"]("Has eliminado correctamente el producto del carrito");
+                //BOTON ELIMINAR
+                let deleteBtn = document.getElementById(`delete${addProduct.id}`)
+
+                deleteBtn.addEventListener('click', () => {
+                    deleteBtn.parentElement.remove()
+                    cart = cart.filter(prodE => prodE.id != addProduct.id)
+                    updateCart()
+                    toastr["warning"](toastr["warning"](`You have succesfully removed ${addProduct.name} from the cart`));
                 })
 
+                //BOTON SUMAR
+                let addCart = document.getElementById(`addCart${addProduct.id}`)
+                $(addCart).click(() => {
+                    addToCart(addProduct.id);
+                    console.log(addProduct);
+                    toastr["success"](`You have added ${addProduct.name}`);
+                })
+
+                //RESTAR
+                let substractCart = document.getElementById(`substractCart${addProduct.id}`)
+
+                $(substractCart).click(() => {
+                    substractFromCart(addProduct.id)
+                });
+
+            }
+        });
+    }
+}
+
+function substractFromCart(id) {
+    let repeated = cart.find(prodR => prodR.id == id);
+
+    if (repeated.Quantity > 1) {
+        repeated.Quantity = repeated.Quantity - 1;
+        document.getElementById(`Quantity${repeated.id}`).innerHTML = `<p id="Quantity${repeated.id}">Quantity: ${repeated.Quantity}</p>`;
+        updateCart();
+    }
+    else {
+        repeated.Quantity = 0;
+        $.getJSON(URLJSON, function (answer, status) {
+            if (status === "success") {
+                let stock = answer;
+                let addProduct = stock.find(prod => prod.id == id)
+                let substractCart = document.getElementById(`substractCart${addProduct.id}`)
+                substractCart.parentElement.remove()
+                cart = cart.filter(prodE => prodE.id != addProduct.id)
+                updateCart();
+                toastr["warning"](`You have succesfully removed ${addProduct.name} from the cart`);
             }
         })
     }
 }
 
-function actualizarCarrito() {
-    contadorCarrito.innerText = carritoDeCompras.reduce((acc, el) => acc + el.Cantidad, 0);
-    precioTotal.innerText = carritoDeCompras.reduce((acc, el) => acc + (el.Precio * el.Cantidad), 0)
-    guardarLocal()
+// VACIAR CARRITO
+$('#btn-empty').click(() => {
+    $('.productOnCart').remove();
+    cart = [];
+    updateCart();
+    toastr["success"]("You have emptied the cart");
+})
+
+
+function updateCart() {
+    productCounter.innerText = cart.reduce((acc, el) => acc + el.Quantity, 0);
+    totalPrice.innerText = cart.reduce((acc, el) => acc + (el.Price * el.Quantity), 0)
+    saveLocal()
 }
 
-function guardarLocal() {
-    localStorage.setItem("productos", JSON.stringify(carritoDeCompras))
+function saveLocal() {
+    localStorage.setItem("products", JSON.stringify(cart))
 }
 
-function obtenerLocal() {
-    let carritoAlmacenado = JSON.parse(localStorage.getItem("productos"));
+function getLocal() {
+    let cartStoraged = JSON.parse(localStorage.getItem("products"));
 
-    if (carritoAlmacenado) {
-        carritoAlmacenado.forEach(el => {
-            carritoDeCompras.push(el)
-            actualizarCarrito()
+    if (cartStoraged) {
+        cartStoraged.forEach(el => {
+            cart.push(el)
+            updateCart()
 
             let div = document.createElement("div");
-            div.classList.add('productoEnCarrito');
-            div.innerHTML += `<p>${el.nombre}</p>
-            <p>Precio: ${el.Precio}</p>
-            <p id="Cantidad${el.id}">Cantidad: ${el.Cantidad}</p>
-            <p>Tipo: ${el.Tipo}</p>
-            <button id="eliminar${el.id}" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button>`
+            div.classList.add('productOnCart', 'row');
+            div.innerHTML += 
+                    `<div class="col-3 z-index-3">
+                    <p>${el.name}</p>
+                    </div>
+                    <div class="col-3 z-index-3">
+                    <p>Price: ${el.Price}</p>
+                    </div>
+                    <div class="col-3 z-index-3">
+                    <p id="Quantity${el.id}">Quantity: ${el.Quantity}</p>
+                    </div>
+                    <button id="delete${el.id}" class="col-1 delete-btn"><i class="fas fa-trash-alt"></i></button>
+                    <button id="substractCart${el.id}" class="col-1 delete-btn">-</button>
+                    <button id="addCart${el.id}" class="col-1 delete-btn">+</button>
+                    </div>`
 
-            contenedorCarrito.appendChild(div);
+            cartContainer.appendChild(div);
 
-            let botonEliminar = document.getElementById(`eliminar${el.id}`);
+            //BOTON ELIMINAR
+            let deleteBtn = document.getElementById(`delete${el.id}`)
 
-            botonEliminar.addEventListener("click", () => {
-                botonEliminar.parentElement.remove();
-                carritoDeCompras = carritoDeCompras.filter(prodEliminado => prodEliminado.id != el.id);
-                actualizarCarrito();
-                toastr["warning"]("Has eliminado correctamente el producto del carrito");
+            deleteBtn.addEventListener('click', () => {
+                deleteBtn.parentElement.remove()
+                cart = cart.filter(prodE => prodE.id != el.id)
+                updateCart()
+                toastr["warning"](toastr["warning"](`You have succesfully removed ${el.name} from the cart`));
             })
-        })
+
+            //BOTON SUMAR
+            let addCart = document.getElementById(`addCart${el.id}`)
+            $(addCart).click(() => {
+                addToCart(el.id);
+                console.log(el);
+                toastr["success"](`You have added ${el.name}`);
+            })
+
+            //RESTAR
+            let substractCart = document.getElementById(`substractCart${el.id}`)
+
+            $(substractCart).click(() => {
+                substractFromCart(el.id)
+            })
+
+        });
     }
 }
-
-obtenerLocal();
+getLocal();

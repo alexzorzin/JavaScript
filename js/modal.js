@@ -1,18 +1,18 @@
-const carritoAbrir = document.getElementById('boton-carrito');
-const carritoCerrar = document.getElementById('carritoCerrar');
+const openCart = document.getElementById('cart-button');
+const closeCart = document.getElementById('cartClose');
 
-const contenedorModal = document.getElementsByClassName('modal-contenedor')[0]
-const modalCarrito = document.getElementsByClassName('modal-carrito')[0]
+const modalContainer = document.getElementsByClassName('modal-container')[0]
+const modalCart = document.getElementsByClassName('modal-cart')[0]
 
-carritoAbrir.addEventListener('click', ()=> {
-    contenedorModal.classList.toggle('modal-active')
+openCart.addEventListener('click', ()=> {
+    modalContainer.classList.toggle('modal-active')
 })
-carritoCerrar.addEventListener('click', ()=> {
-    contenedorModal.classList.toggle('modal-active')
+closeCart.addEventListener('click', ()=> {
+    modalContainer.classList.toggle('modal-active')
 })
-modalCarrito.addEventListener('click',(e)=>{
+modalCart.addEventListener('click',(e)=>{
     e.stopPropagation()
 })
-contenedorModal.addEventListener('click', ()=>{
-    carritoCerrar.click()
+modalContainer.addEventListener('click', ()=>{
+    closeCart.click()
 })

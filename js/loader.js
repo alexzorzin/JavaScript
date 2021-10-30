@@ -1,6 +1,12 @@
+history.scrollRestoration = "manual";
+
+$(window).on('beforeunload', function(){
+      $(window).scrollTop(0);
+});
+
 window.onload = ()=> {
-    var contenedor=$("#loader")[0];
-    contenedor.style.visibility = 'hidden';
+    var container=$("#loader")[0];
+    container.style.visibility = 'hidden';
 }
 
 $(document).ready(()=> {
