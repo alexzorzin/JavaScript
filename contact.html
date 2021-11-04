@@ -212,6 +212,7 @@
   </footer>
   <!-- Footer -->
 
+
   <!-- CARRITO -->
   <div class="modal-container">
     <div class="modal-cart">
@@ -221,24 +222,69 @@
       </div>
       <div class="row">
         <p class="productPrice col-6 mt-4">Total price: AR$ <span id="totalPrice"></span></p>
-        <button id="btn-empty" class="col-3 small cart-btns rounded-pill border-white">Empty cart</button>
-        <a href="error404.html" id="finish-btn" class="btn col-3 small cart-btns rounded-pill border-white">Checkout</a>
+        <button id="btn-empty" class="btn-gradient col-3 small cart-btns rounded-pill border-white">Empty cart</button>
+        <button id="finish-btn" class="btn-gradient col-3 small cart-btns rounded-pill border-white">Checkout</button>
       </div>
     </div>
-    <!-- FIN CARRITO -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-      crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script>
-      new WOW().init();
-    </script>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/toastr.min.js"></script>
-    <script src="./js/modal.js"></script>
-    <script src="./js/app.js"></script>
+  </div>
+  <!-- Checkout -->
+  <div class="modal-container2">
+    <div class="modal-cart2">
+      <h3 class="mb-4 text-uppercase">Checkout</h3>
+      <button id="closeCart2"><i class="fas fa-times-circle"></i></button>
+
+      <form class="row g-3 mt-2 needs-validation" novalidate>
+
+        <div class="col-md-6">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="col-md-6">
+          <label for="surname" class="form-label">Surname</label>
+          <input type="text" class="form-control" id="surname" required>
+        </div>
+        <div class="col-md-6">
+          <label for="pay" class="form-label">Payment method:</label>
+          <select id="pay" class="form-select" required>
+            <option selected disabled value="">Select a payment method</option>
+            <option>Bank transfer</option>
+            <option>MercadoPago</option>
+            <option>Crypto</option>
+            <option>Cash (PagoFacil)</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="adress" class="form-label">Adress</label>
+          <input id="adress" type="text" class="form-control" required>
+          </input>
+        </div>
+
+        <div class="col-12">
+          <label for="message" class="form-label">How do you know our page? (Optional)</label>
+          <textarea class="form-control" id="message" placeholder="Tell us how you discovered our page"
+            rows="6"></textarea>
+        </div>
+        <button id="checkout" type="submit"
+          class="col-3 text-uppercase col-lg-1 btn btn-gradient rounded-pill">Buy</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- FIN DE LA COMPRA -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/toastr.min.js"></script>
+  <script src="./js/modal.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 
 </html>
