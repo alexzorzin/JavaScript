@@ -3,7 +3,7 @@ let cart = []
 const stockContainer = document.getElementById('stock-container');
 const cartContainer = document.getElementById('cart-container');
 
-const productCounter = document.getElementById('product-counter');
+const cartCounter = document.getElementById('product-counter');
 const totalPrice = document.getElementById('totalPrice');
 const URLJSON = "./assets/data/stock.json";
 
@@ -89,7 +89,7 @@ function addToCart(id) {
                 <p>${addProduct.name}</p>
                 </div>
                 <div class="col-3 z-index-3">
-                <p>Price: ${addProduct.Price}</p>
+                <p>Price: $${addProduct.Price}</p>
                 </div>
                 <div class="col-3 z-index-3">
                 <p id="Quantity${addProduct.id}">Quantity: ${addProduct.Quantity}</p>
@@ -163,8 +163,14 @@ $('#btn-empty').click(() => {
 
 
 function updateCart() {
-    productCounter.innerText = cart.reduce((acc, el) => acc + el.Quantity, 0);
+    var productCounter = cartCounter.innerText = cart.reduce((acc, el) => acc + el.Quantity, 0);
     totalPrice.innerText = cart.reduce((acc, el) => acc + (el.Price * el.Quantity), 0)
+    if (productCounter === 0) {
+        $(".cart-btns").css({ "display": "none" });
+    }
+    else{
+        $(".cart-btns").css({ "display": "initial" });
+    }
     saveLocal()
 }
 
@@ -187,7 +193,7 @@ function getLocal() {
                     <p>${el.name}</p>
                     </div>
                     <div class="col-3 z-index-3">
-                    <p>Price: ${el.Price}</p>
+                    <p>Price: $${el.Price}</p>
                     </div>
                     <div class="col-3 z-index-3">
                     <p id="Quantity${el.id}">Quantity: ${el.Quantity}</p>
@@ -228,3 +234,74 @@ function getLocal() {
     }
 }
 getLocal();
+
+const openCart = document.getElementById('cart-button');
+const closeCart = document.getElementById('cartClose');
+
+const modalContainer = document.getElementsByClassName('modal-container')[0]
+const modalCart = document.getElementsByClassName('modal-cart')[0]
+
+openCart.addEventListener('click', ()=> {
+    modalContainer.classList.toggle('modal-active')
+    $(".navbar").css({"display":"none"})
+})
+closeCart.addEventListener('click', ()=> {
+    modalContainer.classList.toggle('modal-active')
+    $(".navbar").css({"display":"initial"})
+})
+modalCart.addEventListener('click',(e)=>{
+    e.stopPropagation()
+})
+modalContainer.addEventListener('click', ()=>{
+    closeCart.click()
+})
+
+const modalContainer2 = $('.modal-container2')[0];
+
+$('#finish-btn').click(() => {
+    modalContainer.classList.toggle('modal-active');
+    modalContainer2.classList.toggle('modal-active2');
+})
+
+$('#closeCart2').click(() => {
+    $(".navbar").css({"display":"initial"})
+    modalContainer2.classList.toggle('modal-active2');
+});
+
+$('.modal-cart2').click((e) => {
+    e.stopPropagation();
+})
+
+$('.modal-container2').click(() => {
+    $('#closeCart2').trigger("click");
+})
+
+function checkoutPay() {
+    window.addEventListener('load', function () {
+
+        var forms = document.getElementsByClassName('needs-validation');
+
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                else {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    console.log(cart);
+                    $('.productOnCart').remove();
+                    cart = [];
+                    updateCart();
+                    modalContainer2.classList.toggle('modal-active2');
+                    toastr["success"]("Thanks for your payment! Our page grows when you buy here");
+                    setTimeout(() => { location.reload() }, 2000);
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+}
+
+checkoutPay();
